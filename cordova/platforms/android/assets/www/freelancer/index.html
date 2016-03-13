@@ -104,7 +104,7 @@
             <div class="row" id="portfolios">
               <div ng-repeat="x in records track by $index" class="col-sm-4 portfolio-item">
                   <p style="text-align: center;">{{x.name}}</p>
-                  <a href="#{{x.portfolioModal}}" class="portfolio-link" data-toggle="modal">
+                  <a ng-href="#portfolioModal-{{$index}}" class="portfolio-link" data-toggle="modal">
                       <div class="caption">
                           <div class="caption-content">
                               <i class="fa fa-search-plus fa-3x"></i>
@@ -253,8 +253,8 @@
     </div>
 
     <!-- Portfolio Modals -->
-    <div id="portfolioModals" ng-repeat="x in records track by $index" >
-      <div class="portfolio-modal modal fade" id="{{x.portfoliomodal}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="portfolioModals" ng-repeat="x in records" >
+      <div class="portfolio-modal modal fade" id="portfolioModal-{{$index}}" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-content">
               <div class="close-modal" data-dismiss="modal">
                   <div class="lr">
