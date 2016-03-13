@@ -27,4 +27,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon density="ldpi" platform="android" src="www/freelancer/img/profile.png" />
+    <icon density="mdpi" platform="android" src="www/freelancer/img/profile.png" />
+    <icon density="hdpi" platform="android" src="www/freelancer/img/profile.png" />
+    <icon density="xhdpi" platform="android" src="www/freelancer/img/profile.png" />
 </widget>

@@ -33,7 +33,8 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        populateData();
+
         window.plugins.googleplus.isAvailable(function(avail) {
           if (avail) {
             window.plugins.googleplus.trySilentLogin(
@@ -48,23 +49,7 @@ var app = {
           };
         }
       );
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-      console.log('Received Event: ' + id);
     }
 };
 
 app.initialize();
-
-function login() {
-  window.plugins.googleplus.login(
-      {},
-      function (obj) {
-        console.log(obj);
-      },
-      function (msg) {
-        console.log("error: " + msg);
-      }
-  );
-}

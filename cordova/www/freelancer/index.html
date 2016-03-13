@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline'">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -11,8 +12,6 @@
 
     <allow-navigation href="*" />
     <access origin="*" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' *">
-
     <title>Qatif Developers - Qatif Freelancers</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
@@ -35,7 +34,7 @@
 
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" ng-app="myApp" ng-controller="myCtrl" onload="javascript:populateData()">
   <div
     class="fb-like"
     data-share="true"
@@ -103,8 +102,19 @@
                     <hr class="star-primary">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4 portfolio-item">
+            <div class="row" id="portfolios">
+              <div ng-repeat="x in records" class="col-sm-4 portfolio-item">
+                  <p style="text-align: center;">{{x.name}}</p>
+                  <a href="#{{x.portfolioModal}}" class="portfolio-link" data-toggle="modal">
+                      <div class="caption">
+                          <div class="caption-content">
+                              <i class="fa fa-search-plus fa-3x"></i>
+                          </div>
+                      </div>
+                      <img src="{{x.img}}" class="img-responsive" alt="">
+                  </a>
+              </div>
+              <!-- <div ng-repeat="x in records" class="col-sm-4 portfolio-item">
                     <p style="text-align: center;">manar sughayer</p>
                     <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
@@ -164,7 +174,7 @@
                         </div>
                         <img src="img/portfolio/submarine.png" class="img-responsive" alt="">
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -251,7 +261,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="text-center">
+    <!-- <footer class="text-center">
         <div class="footer-above">
             <div class="container">
                 <div class="row">
@@ -295,7 +305,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> -->
 
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
     <div class="scroll-top page-scroll visible-xs visible-sm">
@@ -305,7 +315,45 @@
     </div>
 
     <!-- Portfolio Modals -->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="portfolioModals" ng-repeat="x in records" >
+      <div class="portfolio-modal modal fade" id="{{x.portfolioModal}}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-content">
+              <div class="close-modal" data-dismiss="modal">
+                  <div class="lr">
+                      <div class="rl">
+                      </div>
+                  </div>
+              </div>
+              <div class="container">
+                  <div class="row">
+                      <div class="col-lg-8 col-lg-offset-2">
+                          <div class="modal-body">
+                              <h2>{{x.name}}</h2>
+                              <hr class="star-primary">
+                              <img src="{{x.img}}" class="img-responsive img-centered" alt="">
+                              <p>{{x.bio}}</p>
+                              <ul class="list-inline item-details">
+                                  <li>Client:
+                                      <strong><a href="http://startbootstrap.com">Start Bootstrap</a>
+                                      </strong>
+                                  </li>
+                                  <li>Date:
+                                      <strong><a href="http://startbootstrap.com">April 2014</a>
+                                      </strong>
+                                  </li>
+                                  <li>Service:
+                                      <strong><a href="http://startbootstrap.com">Web Development</a>
+                                      </strong>
+                                  </li>
+                              </ul>
+                              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <!-- <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
                 <div class="lr">
@@ -526,8 +574,10 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> -->
+  </div>
+    <!-- Angular -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
@@ -548,6 +598,7 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="text/javascript" src="../cordova.js"></script>
     <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
 
 </body>
 
