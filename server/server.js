@@ -1,16 +1,36 @@
 //Import the necessary libraries/declare the necessary objects
 var express = require("express");
 var myParser = require("body-parser");
+var pg = require('pg');
+
+var conString = "postgres://username:passowrd@localhost/dbname";
 var app = express();
 
-  app.use(myParser.json());
-  app.post("/getdata", function(request, response) {
-      console.log(request.body); //This prints the JSON document received (if it is a JSON document)
-      var body = request.body;
-      console.log(body.name);
-      response.send(data);
-      response.end();
+app.use(myParser.json());
+app.post("/getdata", function(request, response) {
+    var body = request.body;
+    var data = [];
+    pg.connect(conString, function(err, client, done) {
+      if(err) {
+        return console.error('error fetching client from pool', err);
+      }
+      client.query("SELECT GUID, name, ('portfolioModal'|| modal) AS portfolioModal,bio,email,website,twitter,phone,img FROM profile;", function(err, result) {
+        //call `done()` to release the client back to the pool
+        done();
+
+        if(err) {
+          return console.error('error running query', err);
+        }
+        data = result.rows;
+        console.log(data);
+        response.send(data);
+        response.end();
+      });
+    });
+
 });
+
+
 
 //Start the server and make it listen for connections on port 8080
 
